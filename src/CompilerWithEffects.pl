@@ -1,5 +1,5 @@
-
-:-consult('/home/amorotto/KULEUVEN/PartialEvalRepo/src/ProgramTransformation/EffectSystem').
+%Author:- Amr Hany Saleh
+%Date :- 01/05/2016
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -9,6 +9,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+:-consult('EffectSystem').
 
 :- op(1180, fx, handle).
 :- op(1170, yfx, with).
