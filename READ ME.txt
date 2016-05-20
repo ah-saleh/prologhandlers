@@ -1,0 +1,23 @@
+Effect handlers in Prolog.
+
+This repositry is dedicated to the current work on effect handlers in prolog.
+
+The respositry is divided into two partition. The source code and examples for
+our syntax and to show the benchmarks.
+
+In order to run the code, you will need two prolog systems. 
+Sicstus Prolog (tested on version 4.3.1) and
+hProlog (The version supporting delimited control constructs).
+
+In order to compile a file, 
+run the queries:
+
+?- consult('CompilerWithEffects.pl').
+?- compile_effects('inputfile.pl',Optimize,'outputfile.pl').
+
+The Optimize is a variable that changes to true if you want our optimizer
+to work on the code in order to remove as much delimited control constructs as possible.
+If you want an un-optimized version, just a pure translation into delimited control,
+then set Oprimize to false.
+
+After getting the resulting output file, run it normally on the hProlog system.
