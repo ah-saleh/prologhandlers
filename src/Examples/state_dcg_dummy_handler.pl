@@ -1,5 +1,5 @@
 /*************************************
-Definite Clause Grammar Benchmark
+Definite Clause Grammar with Mutable States and a dummy handler Benchmark
 
 To run the program : 
 
@@ -9,11 +9,11 @@ To run the program :
 
 2) in order to generate the non-optimized version of the program:
 
-?- compile_effects('dcg_handler.pl',false,'dcg_handler_no_opt.pl').
+?- compile_effects('state_dcg_handler.pl',false,'state_dcg_handler_no_opt.pl').
 
 Or, to generate the optimized version:
 
-?- compile_effects('dcg_handler.pl',true,'dcg_handler_opt.pl').
+?- compile_effects('state_dcg_handler.pl',true,'state_dcg_handler_opt.pl').
 
 
 3) The compiler generates the new file. Run the newly generated file with
@@ -32,7 +32,7 @@ generate_ab(N,T,T2):- N1 is N-2,
 test(ListLength):-
 	generate_ab(ListLength,[],List),
 	statistics(runtime,[T1,_]),
-	phrase_ab(List,[]),
+	state_phrase_handler(0,_,ListLength),
 	statistics(runtime,[T2,_]),
 	Time is T2 - T1,
 	write('Time is :- '), write(Time),nl.
@@ -46,19 +46,27 @@ with the wanted list length.
 **************************************/
 
 
+:- effect_list([get_state/1,put_state/1,c/1,dummy/0]).
 
 
-:- effect_list([c/1]).
+abinc.
+abinc :- c(a), c(b), get_state(St), St1 is St+1, put_state(St1), abinc.
 
-ab.
-ab:- c(a), c(b),ab.
+inc :- get_state(St), St1 is St+1, put_state(St1).
 
-phrase_ab(Lin,Lout):-
-	handle
-		ab
-	with
-		(c(I)-> Lin1 = [I|Lmid], continue(Lmid,Lout1))
-	finally
-		Lin1 = Lout1
-	for 
-		(Lin1 = Lin, Lout1 = Lout).
+
+state_phrase_handler(Sinn,Soutt,Linn) :- 
+						handle
+							(handle (handle
+									(abinc) with
+									(dummy -> continue)
+									) with
+							( get_state(Q) -> Q = Sin, continue(Sin,Sout)
+							; put_state(NS) -> continue(NS,Sout)
+							)
+							finally Sout = Sin
+							for (Sin = Sinn,Sout = Soutt))
+						with
+						(c(X) -> Lin = [X|Lmid], continue(Lmid,Lout))
+						finally Lin = Lout
+						for( Lin=Linn, Lout=[]).

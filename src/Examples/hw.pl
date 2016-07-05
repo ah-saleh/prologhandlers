@@ -1,3 +1,13 @@
+/***********************************************
+
+This program describes the examples in the article
+shortlisted for ICLP 2016.
+
+
+************************************************/
+
+
+
 :- effect_list([out/1,choice/1]).
 
 hw:- out(hello), out(world).

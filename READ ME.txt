@@ -1,13 +1,16 @@
 Effect handlers in Prolog.
 
-This repositry is dedicated to the current work on effect handlers in prolog.
+This repository is dedicated to the current work on effect handlers in Prolog.
 
-The respositry is divided into two partition. The source code and examples for
+The repository is divided into two partition. The source code and examples for
 our syntax and to show the benchmarks.
 
-In order to run the code, you will need two prolog systems. 
+In order to run the code, you will need two Prolog systems. 
 Sicstus Prolog (tested on version 4.3.1) and
-hProlog (The version supporting delimited control constructs).
+
+hProlog
+OR
+The most recent SWI-Prolog version supporting delimited continuation predicates (reset/3 and shift/1).
 
 In order to compile a file, 
 run the queries:
@@ -17,7 +20,10 @@ run the queries:
 
 The Optimize is a variable that changes to true if you want our optimizer
 to work on the code in order to remove as much delimited control constructs as possible.
-If you want an un-optimized version, just a pure translation into delimited control,
-then set Oprimize to false.
+If you want an unoptimized version, just a pure translation into delimited control,
+then set Optimize to false.
 
-After getting the resulting output file, run it normally on the hProlog system.
+
+Please read the comments on the top of each file in Examples directory for running the benchmarks.
+
+

@@ -17,3 +17,12 @@ handler_0(A, B, C, D) :-
         ;   shift(F),
             handler_0(A, E, C, D)
         ).
+
+
+test(ListLength):-
+    generate_ab(ListLength,[],List),
+    statistics(runtime,[T1,_]),
+    phrase_ab(List,[]),
+    statistics(runtime,[T2,_]),
+    Time is T2 - T1,
+    write('Time is :- '), write(Time),nl.
